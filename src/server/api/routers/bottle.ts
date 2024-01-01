@@ -32,6 +32,12 @@ export const bottleRouter = createTRPCRouter({
     });
   }),
 
+  getAll: publicProcedure.query(({ ctx }) => {
+    return ctx.db.query.bottle.findMany({
+      orderBy: (bottle, { asc }) => [asc(bottle.number)],
+    });
+  }),
+
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";
   }),
