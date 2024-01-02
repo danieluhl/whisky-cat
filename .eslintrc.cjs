@@ -1,5 +1,6 @@
 /** @type {import("eslint").Linter.Config} */
 const config = {
+  ignorePatterns: ["node_modules", ".next", "dist"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     project: true,
@@ -11,6 +12,7 @@ const config = {
     "plugin:@typescript-eslint/stylistic-type-checked",
   ],
   rules: {
+    "semi": ["error", "always"],
     "curly": [
       "error",
       "all"

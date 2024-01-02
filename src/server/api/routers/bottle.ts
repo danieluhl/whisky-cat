@@ -1,5 +1,4 @@
 import { z } from "zod";
-
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -17,11 +16,16 @@ export const bottleRouter = createTRPCRouter({
     }),
 
   create: protectedProcedure
-    .input(z.object({ number: z.number().min(1) }))
+    .input(
+      z.object({
+        number: z.number().min(1),
+        image: z.string().url(),
+      }),
+    )
     .mutation(async ({ ctx, input }) => {
       await ctx.db.insert(bottle).values({
         number: input.number,
-        image: "https://source.unsplash.com/random",
+        image: input.image,
         createdById: ctx.session.user.id,
       });
     }),
